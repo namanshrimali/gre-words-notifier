@@ -7,29 +7,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Words {
+public class WordsGenerator {
   private final Map< String, String> words = new HashMap<>();
-  private final SystemTray tray;
   TrayIcon trayIcon;
 
-  public Words() throws AWTException, IOException {
-    tray = SystemTray.getSystemTray();
-    Imagpackage words;
-
-import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-public class Words {
-  private final Map< String, String> words = new HashMap<>();
-  private final SystemTray tray;
-  TrayIcon trayIcon;
-
-  public Words() throws AWTException, IOException {
-    tray = SystemTray.getSystemTray();
+  public WordsGenerator() throws AWTException, IOException {
+    SystemTray tray = SystemTray.getSystemTray();
     Image image = Toolkit.getDefaultToolkit().createImage("");
     trayIcon = new TrayIcon(image, "GRE Word Meanings");
     trayIcon.setImageAutoSize(true);
@@ -65,7 +48,7 @@ public class Words {
       try {
         for (Map.Entry<String, String> wordAndMeaning : words.entrySet()) {
           popupMachine(wordAndMeaning);
-          Thread.sleep(10000);
+          Thread.sleep(300000);
         }
       } catch (InterruptedException | AWTException e) {
         e.printStackTrace();
