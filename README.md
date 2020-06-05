@@ -10,6 +10,6 @@ GRE Words Notifier is a simple java based application that uses Push Notificatio
 
 ## Setup
 * Clone the code from the repository
-* Head to `Words/resources/words.txt
+* Head to `resources/words.txt
 * Save the words you want to memorize in format of `word:meaning`, each word-meaning pair in a different line
 * Compile and run the java app
