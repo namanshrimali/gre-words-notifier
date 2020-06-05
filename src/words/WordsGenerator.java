@@ -9,17 +9,9 @@ import java.util.Map;
 
 public class WordsGenerator {
   private final Map< String, String> words = new HashMap<>();
-  TrayIcon trayIcon;
 
   public WordsGenerator() throws AWTException, IOException {
-    SystemTray tray = SystemTray.getSystemTray();
-    Image image = Toolkit.getDefaultToolkit().createImage("");
-    trayIcon = new TrayIcon(image, "GRE Word Meanings");
-    trayIcon.setImageAutoSize(true);
-    tray.add(trayIcon);
-
     populateWordMeaningsSet();
-
   }
 
   private void populateWordMeaningsSet() throws IOException {
@@ -50,13 +42,19 @@ public class WordsGenerator {
           popupMachine(wordAndMeaning);
           Thread.sleep(frequency*60*1000);
         }
-      } catch (InterruptedException | AWTException e) {
+      } catch (InterruptedException | IOException e) {
         e.printStackTrace();
       }
     }
   }
-  private void popupMachine(Map.Entry<String, String> wordAndMeaning) throws AWTException {
+  private void popupMachine(Map.Entry<String, String> wordAndMeaning) throws IOException {
+    String[] cmd = { "/usr/bin/notify-send",
+            "-t",
+            "10000",
+            wordAndMeaning.getKey(),
+            wordAndMeaning.getValue()
+    };
+    Runtime.getRuntime().exec(cmd);
     System.out.println(String.format("Generating popup %s ---- %s", wordAndMeaning.getKey(), wordAndMeaning.getValue()));
-    trayIcon.displayMessage(wordAndMeaning.getKey(), wordAndMeaning.getValue(), TrayIcon.MessageType.INFO);
   }
 }
