@@ -42,13 +42,13 @@ public class WordsGenerator {
     reader.close();
   }
 
-  public void displayMeaningsOnPopup() {
+  public void displayMeaningsOnPopup(int frequency) {
     while(!words.isEmpty()) {
       System.out.println("======= Words Service Started =======");
       try {
         for (Map.Entry<String, String> wordAndMeaning : words.entrySet()) {
           popupMachine(wordAndMeaning);
-          Thread.sleep(300000);
+          Thread.sleep(frequency*60*1000);
         }
       } catch (InterruptedException | AWTException e) {
         e.printStackTrace();
