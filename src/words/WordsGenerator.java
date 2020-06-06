@@ -10,12 +10,12 @@ import java.util.Map;
 public class WordsGenerator {
   private final Map< String, String> words = new HashMap<>();
 
-  public WordsGenerator() throws AWTException, IOException {
-    populateWordMeaningsSet();
+  public WordsGenerator(short section, short level) throws AWTException, IOException {
+    populateWordMeaningsSet(section, level);
   }
 
-  private void populateWordMeaningsSet() throws IOException {
-    String filePath = "resources/words.txt";
+  private void populateWordMeaningsSet(short section, short level) throws IOException {
+    String filePath = String.format("resources/%x%x.txt",section, level);
     String line;
     BufferedReader reader = new BufferedReader(new FileReader(filePath));
     while ((line = reader.readLine()) != null)
@@ -34,7 +34,7 @@ public class WordsGenerator {
     reader.close();
   }
 
-  public void displayMeaningsOnPopup(int frequency) {
+  public void displayMeaningsOnPopup(short frequency) {
     while(!words.isEmpty()) {
       System.out.println("======= Words Service Started =======");
       try {
@@ -55,6 +55,6 @@ public class WordsGenerator {
             wordAndMeaning.getValue()
     };
     Runtime.getRuntime().exec(cmd);
-    System.out.println(String.format("Generating popup %s ---- %s", wordAndMeaning.getKey(), wordAndMeaning.getValue()));
+    System.out.println(String.format("Generating popup :: %s ---- %s", wordAndMeaning.getKey(), wordAndMeaning.getValue()));
   }
 }
