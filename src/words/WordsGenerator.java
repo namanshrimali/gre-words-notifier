@@ -11,19 +11,18 @@ public class WordsGenerator {
   private final Map< String, String> words = new HashMap<>();
   TrayIcon trayIcon;
 
-  public WordsGenerator() throws AWTException, IOException {
+  public WordsGenerator(short section, short level) throws AWTException, IOException {
     SystemTray tray = SystemTray.getSystemTray();
     Image image = Toolkit.getDefaultToolkit().createImage("");
     trayIcon = new TrayIcon(image, "GRE Word Meanings");
     trayIcon.setImageAutoSize(true);
     tray.add(trayIcon);
-
-    populateWordMeaningsSet();
+    populateWordMeaningsSet(section, level);
 
   }
 
-  private void populateWordMeaningsSet() throws IOException {
-    String filePath = "resources/words.txt";
+  private void populateWordMeaningsSet(short section, short level) throws IOException {
+    String filePath = String.format("resources/%s%s.txt", section, level);
     String line;
     BufferedReader reader = new BufferedReader(new FileReader(filePath));
     while ((line = reader.readLine()) != null)
@@ -42,7 +41,7 @@ public class WordsGenerator {
     reader.close();
   }
 
-  public void displayMeaningsOnPopup(int frequency) {
+  public void displayMeaningsOnPopup(short frequency) {
     while(!words.isEmpty()) {
       System.out.println("======= Words Service Started =======");
       try {
